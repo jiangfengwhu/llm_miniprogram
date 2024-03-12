@@ -1,0 +1,16 @@
+<view>
+  <image
+    src="{{item.fullUrl}}"
+    style="width: {{item.width}}px; height: {{item.height}}px; border-radius: 8px;"
+    mode="aspectFill"
+  ></image>
+  <view>
+    <text class="title">{{item.id}}</text>
+  </view>
+  <view>
+    <text class="describe">风格介绍：</text>
+  </view>
+  <view>
+    <text class="like">点赞：</text>
+  </view>
+</view>

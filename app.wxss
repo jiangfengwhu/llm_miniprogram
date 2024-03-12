@@ -7,4 +7,24 @@
   justify-content: space-between;
   padding: 200rpx 0;
   box-sizing: border-box;
-} 
+}
+
+/* 白天主题 https://www.happyhues.co/palettes/9 */
+.light {
+  --theme: #ff8e3c;
+  --theme-background: #eff0f3;
+  --theme-head-line:#0d0d0d;
+  --theme-paragraph: #2a2a2a;
+  --theme-button: #ff8e3c;
+  --theme-button-text: #0d0d0d;
+}
+
+/* 夜晚主题 https://www.happyhues.co/palettes/13 */
+.dark {
+  --theme: #ff8e3c;
+  --theme-background: #0f0e17;
+  --theme-head-line:#fffffe;
+  --theme-paragraph: #a7a9be;
+  --theme-button: #ff8906;
+  --theme-button-text: #fffffe;
+}

@@ -1,0 +1,19 @@
+<view class="{{theme}}">
+  <view class="content">
+    <view>
+      <text>请上传图片</text>
+    </view>
+    <view>
+      <t-upload
+        mediaType="{{['video','image']}}"
+        max="{{1}}"
+        files="{{fileList}}"
+        bind:add="handleAdd"
+        bind:remove="handleRemove"
+      >
+      </t-upload>
+    </view>
+    <t-button theme="primary" size="large" bind:tap="clickButton">开始生成</t-button>
+    <t-toast id="t-toast" />
+  </view>
+</view>

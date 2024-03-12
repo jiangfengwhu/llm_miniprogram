@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "grid-image": "../../components/grid-image/index"
+  },
+  "componentFramework": "glass-easel" 
+}

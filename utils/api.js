@@ -31,13 +31,16 @@ function get(path, query) {
   });
 }
 
-function upload(url, filepath, formData) {
+function upload(path, _filepath, formData) {
   return new Promise((resolve, reject) => {
     wx.uploadFile({
-      url,
-      filePath,
-      name: "file",
+      url: `${consts.serverUrl}${path}`,
+      filePath: _filepath,
+      name: "image",
       formData,
+      header: {
+        "content-type": "multipart/form-data; boundary=XXX"
+      },
       success(res) {
         resolve(res.data);
       },

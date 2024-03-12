@@ -1,0 +1,7 @@
+<scroll-view scroll-y type="custom" enable-passive class="{{theme}}"  >
+  <grid-view type="masonry" cross-axis-count="{{crossAxisCount}}" cross-axis-gap="{{crossAxisGap}}" main-axis-gap="{{mainAxisGap}}" class="content">
+    <view wx:for="{{gridList}}" wx:key="url" index="url">
+      <grid-image item="{{item}}" bind:tap="goUpload" data-item="{{item}}"></grid-image>
+    </view>
+  </grid-view>
+</scroll-view>

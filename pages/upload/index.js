@@ -1,7 +1,7 @@
 import api from '../../utils/api'
 import Toast from 'tdesign-miniprogram/toast/index';
 const { globalData } = getApp()
-const FormData = require('../../utils/formData')
+
 
 
 Page({
@@ -39,42 +39,15 @@ Page({
 
   // 上传图片
   onUpload:async function(file) {
-    const { fileList } = this.data;
-
-    this.setData({
-      fileList: [...fileList, { ...file, status: 'loading' }],
-    });
-    const { length } = fileList;
-
-    const formData = new FormData();
-    formData.append("image", file);
-    formData.append("overwrite", "true");
-
-    api.upload("/com/upload/image", file.url, formData).then(data => {
-      console.log(data)
+    api.upload("/com/upload/image", file).then(data => {
+      const res = JSON.parse(data) ?? {}
+      if (res?.name) {
+        console.log(res)
+        // return { url: URL.createObjectURL(file.url), name: data?.name };
+      }
     }).catch(err => {
       console.log(err, 'err')
     })
-
-
-
-    // const task = wx.uploadFile({
-    //   // /upload/image
-    //   url: 'https://example.weixin.qq.com/upload', // 仅为示例，非真实的接口地址
-    //   filePath: file.url,
-    //   name: 'file',
-    //   formData: { user: 'test' },
-    //   success: () => {
-    //     this.setData({
-    //       [`fileList[${length}].status`]: 'done',
-    //     });
-    //   },
-    // });
-    // task.onProgressUpdate((res) => {
-    //   this.setData({
-    //     [`fileList[${length}].percent`]: res.progress,
-    //   });
-    // });
   },
 
   // 删除图片

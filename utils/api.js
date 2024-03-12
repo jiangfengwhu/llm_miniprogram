@@ -1,4 +1,5 @@
 const consts = require("./consts");
+const FormData = require('../utils/formData')
 
 function post(path, data) {
   return new Promise((resolve, reject) => {
@@ -31,11 +32,14 @@ function get(path, query) {
   });
 }
 
-function upload(path, _filepath, formData) {
+function upload(path, file) {
+  const formData = new FormData();
+  formData.append("image", file);
+  formData.append("overwrite", "true");
   return new Promise((resolve, reject) => {
     wx.uploadFile({
       url: `${consts.serverUrl}${path}`,
-      filePath: _filepath,
+      filePath: file.url,
       name: "image",
       formData,
       header: {

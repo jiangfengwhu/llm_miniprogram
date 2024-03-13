@@ -14,6 +14,7 @@ Page({
     gridList: [],
     backTopTheme: 'round',
     backTopText: '顶部',
+    scrollTop: 0
   },
 
   /**
@@ -30,7 +31,9 @@ Page({
           ...item,
           fullUrl: `https://gate.fbyron.cn/com/res/home/${item.url}`,
           width: imageWidth,
-          height: Math.floor(parseInt(item.height) / Math.floor(parseInt(item.width) / imageWidth)) ?? imageWidth
+          height: Math.floor(parseInt(item.height) / Math.floor(parseInt(item.width) / imageWidth)) ?? imageWidth,
+          styleDesc: 'test',
+          like: '999+'
         }
       })
 
@@ -58,12 +61,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    // if (typeof this.getTabBar === 'function' && this.getTabBar()) {
-    //   const page = getCurrentPages().pop();
-    //   this.getTabBar().setData({
-    //     value: '/' + page.route
-    //   })
-    // }
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      const page = getCurrentPages().pop();
+      this.getTabBar().setData({
+        value: `/${page.route}`
+      })
+    }
   },
 
   /**

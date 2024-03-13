@@ -35,15 +35,14 @@ function get(path, query) {
 }
 
 function upload(path, file) {
-  const formData = new FormData();
-  formData.append("image", file);
-  formData.append("overwrite", "true");
   return new Promise((resolve, reject) => {
     wx.uploadFile({
       url: `${consts.serverUrl}${path}`,
       filePath: file.url,
       name: "image",
-      formData,
+      formData: {
+        overwrite: true,
+      },
       header: {
         "content-type": "multipart/form-data; boundary=XXX",
         Bearer: AuthToken,

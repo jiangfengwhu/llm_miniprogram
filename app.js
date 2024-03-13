@@ -53,7 +53,10 @@ App({
     const token = wx.getStorageSync("token");
     if (token) {
       api.updateToken(token);
-      api.get("/gapi/wx/user_info").then(console.log);
+      api.get("/gapi/wx/user_info").then(data => {
+        console.log(data.data, 'data.data')
+        this.globalData.userInfo = data.data;
+      });
     } else {
       // 登录
       wx.login({
@@ -77,5 +80,6 @@ App({
   globalData: {
     userInfo: null,
     theme: "light", // 主题色，默认light
+    userInfo: {},
   },
 });

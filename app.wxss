@@ -1,14 +1,4 @@
 /**app.wxss**/
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-}
-
 /* 白天主题 https://www.happyhues.co/palettes/9 */
 .light {
   --theme: #ff8e3c;

@@ -1,0 +1,13 @@
+<!--index.wxml-->
+<view class="container" >
+  <view class="userinfo">
+    <t-avatar class="avatar-example" image="{{userInfo.avatarUrl}}" />
+    <text class="task-num">{{userInfo.nickName}}</text>
+    <text class="task-num">当前剩余次数：{{userInfo.tickets}}次</text>
+  </view>
+  <view class="user-list">
+    <t-cell title="我的图片" hover arrow leftIcon="image" bind:tap="goMyImageList" />
+    <t-cell title="获取次数" hover arrow leftIcon="map-unlocked" />
+    <t-cell title="xxx" hover arrow leftIcon="lock-on" bordered="{{false}}" />
+  </view>
+</view>

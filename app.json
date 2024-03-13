@@ -2,20 +2,17 @@
   "pages": [
     "pages/home/index",
     "pages/upload/index",
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/user/index",
+    "pages/logs/logs",
+    "pages/list/index"
   ],
   "tabBar": {
     "custom": true,
-    "color": "#666666",
-    "selectedColor": "#FF5F15",
-    "backgroundColor": "#ffffff",
-    "borderStyle": "black",
     "list": [{
       "pagePath": "pages/home/index",
       "text": "首页"
     }, {
-      "pagePath": "pages/index/index",
+      "pagePath": "pages/user/index",
       "text": "我的"
     }]
   },

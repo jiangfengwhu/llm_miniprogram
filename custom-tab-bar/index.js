@@ -1,21 +1,25 @@
 Component({
   data: {
-    value: 'pages/home/index',
-    tabBar: [{
-      url: 'pages/home/index',
+    value: '/pages/home/index',
+    list: [{
+      url: '/pages/home/index',
       icon: 'home',
       label: '首页',
+      ariaLabel: '首页',
+      value: '/pages/home/index'
     }, {
-      value: 'pages/index/index',
+      url: '/pages/user/index',
       icon: 'user',
-      url: '我的',
+      label: '我的',
+      ariaLabel: '我的',
+      value: '/pages/user/index'
     }]
   },
 
   methods: {
     onChange(e) {
-      this.setData({
-        value: e.detail.value,
+      wx.switchTab({
+        url: e.detail.value
       });
     },
   },

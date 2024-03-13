@@ -35,18 +35,19 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: async function(options) {
+  onLoad (options) {
     const windowInfo = wx.getWindowInfo();
     const screenWidth = windowInfo.screenWidth;
     const aiImageHeight = Math.floor(windowInfo.screenHeight * 0.4);
     const uploadImageHeight = Math.floor(windowInfo.screenHeight * 0.8);
+
     const params = JSON.parse(options?.params) ?? {};
 
     this.setData({
       theme: globalData.theme,
       aiImage: {
-        id: params.id, // id
-        fullUrl: params.fullUrl, // 地址
+        id: params?.id, // id
+        fullUrl: params?.fullUrl, // 地址
         aiImageHeight, // ai图片的高
       },
       gridConfig: {
@@ -99,24 +100,36 @@ Page({
   // 提交按钮
   clickButton:async function() {
     const { aiImage, fileList, userUploadImage, dialogConfig } = this.data;
-    if (fileList.length > 0) {
-      const res = await api.post('/gapi/queue_prompt', {
-        template_id: aiImage.id,
-        images: { 13: userUploadImage.name },
-        type: "t2i",
-      })
-      const title = res?.code === 0 ? 'AI图片正在生成中1' : 'AI图片生成失败';
-      const content = res?.code === 0 ? '请稍后在我的页面进行浏览、保存' : '请重新选择风格';
-      this.showDialog(Object.assign(dialogConfig, {title, content}))
+    const tickets = globalData.userInfo.tickets;
+    if (tickets > 0) {
+      if (fileList.length > 0) {
+        const res = await api.post('/gapi/wx/queue_prompt', {
+          template_id: aiImage.id,
+          images: { 13: userUploadImage.name },
+          type: "t2i",
+        })
+        const title = res?.code === 0 ? 'AI图片正在生成中' : 'AI图片生成失败';
+        const content = res?.code === 0 ? '请稍后在我的页面进行浏览、保存' : '请重新选择风格';
+        this.showDialog(Object.assign(dialogConfig, {title, content}))
+      } else {
+        Toast({
+          context: this,
+          selector: '#t-toast',
+          message: '请上传图片',
+          theme: 'warning',
+          direction: 'column',
+        });
+      }
     } else {
       Toast({
         context: this,
         selector: '#t-toast',
-        message: '请上传图片',
+        message: '没有生成次数了哦',
         theme: 'warning',
         direction: 'column',
       });
     }
+
   },
 
   showDialog(newDialogConfig) {

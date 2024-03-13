@@ -2,7 +2,7 @@
   "component": true,
   "usingComponents": {
     "grid-image": "../../components/grid-image/index",
-    "t-back-top": "tdesign-miniprogram/back-top/back-top"
+    "t-empty": "tdesign-miniprogram/empty/empty"
   },
   "componentFramework": "glass-easel"
 }

@@ -4,13 +4,13 @@
     style="width: {{item.width}}px; height: {{item.height}}px; border-radius: 8px;"
     mode="aspectFill"
   ></image>
-  <view>
+  <view wx:if="{{item.id}}">
     <text class="title">{{item.id}}</text>
   </view>
-  <view>
-    <text class="describe">风格介绍：</text>
+  <view wx:if="{{item.styleDesc}}">
+    <text class="describe">风格介绍：{{item.styleDesc}}</text>
   </view>
-  <view>
-    <text class="like">点赞：</text>
+  <view wx:if="{{item.like}}">
+    <text class="like">点赞：{{item.like}}</text>
   </view>
 </view>

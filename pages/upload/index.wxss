@@ -1,8 +1,4 @@
 .content {
-  /* display: flex; */
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background-color: var(--theme-background);
   padding-top: 10px;
   padding-left: 10px;

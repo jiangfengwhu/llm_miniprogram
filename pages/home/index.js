@@ -93,13 +93,17 @@ Page({
   // 跳转上传页面
   goUpload(e) {
     const fullUrl = e.currentTarget.dataset.item?.fullUrl;
-    console.log(fullUrl, 'fullUrl')
+    const id = e.currentTarget.dataset.item?.id;
+    const params = JSON.stringify({
+      fullUrl,
+      id
+    })
     if (fullUrl) {
       wx.navigateTo({
-        url: '../upload/index?fullUrl=' + fullUrl,
+        url: '../upload/index?params=' + params,
       })
     } else {
-      console.log('没拿到item')
+      console.log('请重新进入小程序!')
     }
 
   }

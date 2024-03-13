@@ -4,4 +4,23 @@
   justify-content: center;
   align-items: center;
   background-color: var(--theme-background);
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.aiImageView {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5px;
+}
+.aiImage {
+  width: 100%;
+  border-radius: 8px;
+}
+.tButton {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
 }

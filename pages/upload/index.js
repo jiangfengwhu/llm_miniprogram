@@ -2,8 +2,6 @@ import api from '../../utils/api'
 import Toast from 'tdesign-miniprogram/toast/index';
 const { globalData } = getApp()
 
-
-
 Page({
   /**
    * 页面的初始数据
@@ -11,15 +9,51 @@ Page({
   data: {
     theme: globalData.theme,
     fileList: [], // 图片list
+    aiImage: {
+      fullUrl: '', // 地址
+      aiImageHeight: 300, // ai图片的高
+    },
+    gridConfig: {
+      column: 1,
+      width: 200,
+      height: 200
+    },
+    ImageProps: {
+      // 没有生效
+      mode: "aspectFit",
+    },
+    userUploadImage: {}, // 用户上传图片回调
+    // dialog 内容
+    dialogConfig: {
+      visible: false,
+      title: 'AI图片正在生成中',
+      content: "请稍后在我的页面进行浏览、保存",
+      confirmBtn: { content: '返回首页', variant: 'base' },
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: async function(options) {
-    const fullUrl = options.fullUrl
+    const windowInfo = wx.getWindowInfo();
+    const screenWidth = windowInfo.screenWidth;
+    const aiImageHeight = Math.floor(windowInfo.screenHeight * 0.4);
+    const uploadImageHeight = Math.floor(windowInfo.screenHeight * 0.8);
+    const params = JSON.parse(options?.params) ?? {};
+
     this.setData({
       theme: globalData.theme,
+      aiImage: {
+        id: params.id, // id
+        fullUrl: params.fullUrl, // 地址
+        aiImageHeight, // ai图片的高
+      },
+      gridConfig: {
+        column: 1,
+        width: (screenWidth - 20) * 2,
+        height: uploadImageHeight
+      },
     })
   },
 
@@ -42,8 +76,9 @@ Page({
     api.upload("/com/upload/image", file).then(data => {
       const res = JSON.parse(data) ?? {}
       if (res?.name) {
-        console.log(res)
-        // return { url: URL.createObjectURL(file.url), name: data?.name };
+        this.setData({
+          userUploadImage: res,
+        })
       }
     }).catch(err => {
       console.log(err, 'err')
@@ -62,11 +97,17 @@ Page({
   },
 
   // 提交按钮
-  clickButton() {
-    const { fileList } = this.data;
-    console.log(fileList)
+  clickButton:async function() {
+    const { aiImage, fileList, userUploadImage, dialogConfig } = this.data;
     if (fileList.length > 0) {
-
+      const res = await api.post('/gapi/queue_prompt', {
+        template_id: aiImage.id,
+        images: { 13: userUploadImage.name },
+        type: "t2i",
+      })
+      const title = res?.code === 0 ? 'AI图片正在生成中1' : 'AI图片生成失败';
+      const content = res?.code === 0 ? '请稍后在我的页面进行浏览、保存' : '请重新选择风格';
+      this.showDialog(Object.assign(dialogConfig, {title, content}))
     } else {
       Toast({
         context: this,
@@ -76,6 +117,28 @@ Page({
         direction: 'column',
       });
     }
+  },
+
+  showDialog(newDialogConfig) {
+    const { dialogConfig } = this.data
+    this.setData({
+      dialogConfig: {
+        ...dialogConfig,
+        ...newDialogConfig,
+        visible: true
+      }
+     });
+  },
+
+  closeDialog() {
+    const { dialogConfig } = this.data
+    this.setData({
+      dialogConfig: {
+        ...dialogConfig,
+        visible: false
+      }
+     });
+     wx.navigateBack()
   },
 
   /**

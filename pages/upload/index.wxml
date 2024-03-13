@@ -1,19 +1,39 @@
 <view class="{{theme}}">
   <view class="content">
-    <view>
-      <text>请上传图片</text>
+    <view class="aiImageView">
+      <image
+        src="{{aiImage.fullUrl}}"
+        style="height: {{aiImage.aiImageHeight}}px;"
+        class="aiImage"
+        mode="aspectFill"
+      ></image>
     </view>
-    <view>
-      <t-upload
-        mediaType="{{['video','image']}}"
+
+    <t-upload
+        class="tUpload"
+        id="tUpload"
+        gridConfig="{{gridConfig}}"
+        mediaType="{{['image']}}"
         max="{{1}}"
         files="{{fileList}}"
         bind:add="handleAdd"
         bind:remove="handleRemove"
+        ImageProps="{{ImageProps}}"
       >
-      </t-upload>
+    </t-upload>
+
+    <view class="tButton">
+      <t-button theme="primary" size="large" bind:tap="clickButton">开始生成</t-button>
     </view>
-    <t-button theme="primary" size="large" bind:tap="clickButton">开始生成</t-button>
+
+
     <t-toast id="t-toast" />
+    <t-dialog
+      visible="{{dialogConfig.visible}}"
+      title="{{dialogConfig.title}}"
+      content="{{dialogConfig.content}}"
+      confirm-btn="{{ dialogConfig.confirmBtn }}"
+      bind:confirm="closeDialog"
+    />
   </view>
 </view>

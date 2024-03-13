@@ -1,6 +1,9 @@
 {
+  "component": true,
   "usingComponents": {
-    "grid-image": "../../components/grid-image/index"
+    "grid-image": "../../components/grid-image/index",
+    "custom-tab-bar": "/custom-tab-bar/index",
+    "t-back-top": "tdesign-miniprogram/back-top/back-top"
   },
-  "componentFramework": "glass-easel" 
+  "componentFramework": "glass-easel"
 }

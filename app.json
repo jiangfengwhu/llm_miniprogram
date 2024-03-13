@@ -5,6 +5,23 @@
     "pages/index/index",
     "pages/logs/logs"
   ],
+  "tabBar": {
+    "custom": true,
+    "color": "#666666",
+    "selectedColor": "#FF5F15",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [{
+      "pagePath": "pages/home/index",
+      "text": "首页"
+    }, {
+      "pagePath": "pages/index/index",
+      "text": "我的"
+    }]
+  },
+  "usingComponents": {
+
+  },
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "Weixin",

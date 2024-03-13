@@ -12,6 +12,8 @@ Page({
     crossAxisGap: 4,
     mainAxisGap: 4,
     gridList: [],
+    backTopTheme: 'round',
+    backTopText: '顶部',
   },
 
   /**
@@ -41,6 +43,10 @@ Page({
 
   },
 
+  onToTop(e) {
+    // console.log('backToTop', e);
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -52,7 +58,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    // if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+    //   const page = getCurrentPages().pop();
+    //   this.getTabBar().setData({
+    //     value: '/' + page.route
+    //   })
+    // }
   },
 
   /**
@@ -98,6 +109,7 @@ Page({
       fullUrl,
       id
     })
+
     if (fullUrl) {
       wx.navigateTo({
         url: '../upload/index?params=' + params,

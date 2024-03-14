@@ -45,11 +45,9 @@ App({
     // const logs = wx.getStorageSync("logs") || [];
     // logs.unshift(Date.now());
     // wx.setStorageSync("logs", logs);
-    // api.get("/api/addr").then(console.log);
 
-    // 根据用户屏幕宽度处理图片宽度 35=左右边距10 + 中间 15
     const token = wx.getStorageSync("token");
-    console.log(token, 'token')
+    // console.log(token, 'token')
     if (token) {
       api.updateToken(token);
       const res = await api.get(serverApi.userInfo)
@@ -71,9 +69,10 @@ App({
     wx.login({
       success:async (res) => {
         const data = await api.get(`${serverApi.login}?code=${res.code}`);
-        const { token } = data.data ?? {};
+        const { token, user } = data.data ?? {};
           api.updateToken(token);
           wx.setStorageSync("token", token);
+          this.globalData.userInfo = user;
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       },
     });

@@ -53,7 +53,7 @@ App({
     if (token) {
       api.updateToken(token);
       const res = await api.get(serverApi.userInfo)
-      if (res?.code === 403) {
+      if (res?.code === 401) {
         // 重新登录
         await this.login()
       } else if (res?.code === 0) {

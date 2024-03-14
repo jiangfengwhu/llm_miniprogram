@@ -19,5 +19,5 @@
     bind:change="onChange"
     bind:close="onClose"
   ></t-image-viewer>
-  <t-toast id="t-toast" />
+  <t-toast id="t-toast" wx:if="{{gridList.length > 0}}" />
 </scroll-view>

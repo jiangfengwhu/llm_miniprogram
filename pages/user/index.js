@@ -13,12 +13,11 @@ Page({
       avatarUrl: defaultAvatarUrl,
       nickName: "",
       tickets: 0,
-      randomBgColor: '#'+(Math.random()*0xffffff<<0).toString(16),
     },
     dialogConfig: {
       visible: false,
       title: '获取次数',
-      content: "请找分享者添加",
+      content: "请联系分享者添加",
       confirmBtn: { content: '我知道了', variant: 'base' },
     }
   },

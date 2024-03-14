@@ -29,6 +29,7 @@ page {
   background-size: 100% 100%;
   z-index: -1;
   filter: blur(16rpx);
+  background-color: #fc8c23;
 }
 .task-num {
   margin-top: 20rpx;

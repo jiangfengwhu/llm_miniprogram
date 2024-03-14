@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container" >
   <view class="userinfo">
-    <view class="bg-blur" style="background-color: {{userInfo.randomBgColor}};" />
+    <view class="bg-blur" />
     <t-avatar class="avatar-example" shape="round" image="{{userInfo.avatarUrl}}" />
     <text class="task-num">{{userInfo.nickName}}</text>
     <text class="task-num">当前剩余次数：{{userInfo.tickets}}次</text>

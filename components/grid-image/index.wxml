@@ -1,14 +1,19 @@
 <view>
-  <view wx:if="{{item.status !== 2}}" class="no-image">
-    <text>{{item.status === 0 ? '排队中' : item.status === 1 ? '正在生成' : item.ErrMsg}}</text>
+  <view wx:if="{{item.status === -1}}" class="no-image">
+    <text>{{item.ErrMsg}}</text>
   </view>
-  <image
-    wx:if="{{item.status === 2}}"
-    src="{{item.fullUrl}}"
-    style="width: 92%; border-radius: 8px;"
-    mode="widthFix"
-    bindlongpress="{{item.bindlongpress}}"
-  />
+  <view wx:if="{{item.status !== -1}}" style="position: relative;">
+    <image
+      src="{{item.fullUrl}}"
+      style="width: 92%; border-radius: 8px;"
+      mode="widthFix"
+      bindlongpress="{{item.bindlongpress}}"
+    />
+    <view class="status-view" wx:if="{{item.status !== 2}}">
+      <text class="status-text">{{item.status === 0 ? '排队中' : item.status === 1 ? '正在生成' : ''}}</text>
+    </view>
+
+  </view>
   <view wx:if="{{item.id}}">
     <text class="title">{{item.id}}</text>
   </view>

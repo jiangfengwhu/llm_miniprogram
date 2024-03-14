@@ -12,4 +12,5 @@
     bind:to-top="onToTop"
     t-class="backTop"
   ></t-back-top>
+  <t-toast id="t-toast" />
 </scroll-view>

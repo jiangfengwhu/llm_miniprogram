@@ -1,39 +1,34 @@
-<view class="{{theme}}">
-  <view class="content">
-    <view class="aiImageView">
-      <image
-        src="{{aiImage.fullUrl}}"
-        style="height: {{aiImage.aiImageHeight}}px;"
-        class="aiImage"
-        mode="aspectFill"
-      ></image>
-    </view>
-
+<view
+  class="content"
+  style="background-image: url({{aiImage.fullUrl}});"
+>
+  <view class="content-filter" />
+  <view class="upload-view">
+    <view style="display: flex; flex: 1" />
     <t-upload
-        class="tUpload"
-        id="tUpload"
-        gridConfig="{{gridConfig}}"
-        mediaType="{{['image']}}"
-        max="{{1}}"
-        files="{{fileList}}"
-        bind:add="handleAdd"
-        bind:remove="handleRemove"
-        ImageProps="{{ImageProps}}"
-      >
+      t-class="t-upload"
+      gridConfig="{{gridConfig}}"
+      mediaType="{{['image']}}"
+      max="{{1}}"
+      files="{{fileList}}"
+      bind:add="handleAdd"
+      bind:remove="handleRemove"
+    >
     </t-upload>
 
-    <view class="tButton">
-      <t-button theme="primary" size="large" bind:tap="clickButton">开始生成</t-button>
-    </view>
+    <t-button t-class="t-button" bind:tap="clickButton" ghost size="large">开始生成</t-button>
 
-
-    <t-toast id="t-toast" />
-    <t-dialog
-      visible="{{dialogConfig.visible}}"
-      title="{{dialogConfig.title}}"
-      content="{{dialogConfig.content}}"
-      confirm-btn="{{ dialogConfig.confirmBtn }}"
-      bind:confirm="closeDialog"
-    />
+    <view style="display: flex; flex: 1" />
+    <t-divider content="请上传存在人像的照片" t-class="t-divider" />
   </view>
+
+
+  <t-toast id="t-toast" />
+  <t-dialog
+    visible="{{dialogConfig.visible}}"
+    title="{{dialogConfig.title}}"
+    content="{{dialogConfig.content}}"
+    confirm-btn="{{ dialogConfig.confirmBtn }}"
+    bind:confirm="closeDialog"
+  />
 </view>

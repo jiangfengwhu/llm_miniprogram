@@ -2,7 +2,10 @@
   "component": true,
   "usingComponents": {
     "grid-image": "../../components/grid-image/index",
-    "t-empty": "tdesign-miniprogram/empty/empty"
-  },
-  "componentFramework": "glass-easel"
+    "t-empty": "tdesign-miniprogram/empty/empty",
+    "t-action-sheet": "tdesign-miniprogram/action-sheet/action-sheet",
+    "t-image-viewer": "tdesign-miniprogram/image-viewer/image-viewer",
+    "t-dialog": "tdesign-miniprogram/dialog/dialog",
+    "t-toast": "tdesign-miniprogram/toast/toast"
+  }
 }

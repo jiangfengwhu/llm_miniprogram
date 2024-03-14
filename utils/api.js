@@ -1,5 +1,5 @@
 const consts = require("./consts");
-const FormData = require("./formData");
+
 let AuthToken = "";
 function post(path, data) {
   return new Promise((resolve, reject) => {

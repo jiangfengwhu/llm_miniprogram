@@ -3,6 +3,9 @@
   "usingComponents": {
     "t-avatar": "tdesign-miniprogram/avatar/avatar",
     "t-cell": "tdesign-miniprogram/cell/cell",
-    "t-icon": "tdesign-miniprogram/icon/icon"
-  }
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "t-toast": "tdesign-miniprogram/toast/toast",
+    "t-dialog": "tdesign-miniprogram/dialog/dialog"
+  },
+  "navigationBarTitleText": "我的主页"
 }

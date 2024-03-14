@@ -1,5 +1,8 @@
-import api from '../../utils/api'
-const { globalData } = getApp()
+import Toast from 'tdesign-miniprogram/toast/index';
+
+const api = require('../../utils/api')
+const { serverApi, resuseUrl } = require('../../utils/consts')
+
 
 
 Page({
@@ -7,7 +10,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    theme: globalData.theme,
     crossAxisCount: 2,
     crossAxisGap: 4,
     mainAxisGap: 4,
@@ -21,19 +23,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: async function(options) {
-    this.setData({theme: globalData.theme})
-    const imageWidth = wx.getStorageSync("imageWidth")
-    const response = await api.get("/gapi/home")
+    const response = await api.get(serverApi.home)
 
     if (response.code === 0) {
       const gridList = response?.data?.map(item=> {
         return {
           ...item,
-          fullUrl: `https://gate.fbyron.cn/com/res/home/${item.url}`,
-          width: imageWidth,
-          height: Math.floor(parseInt(item.height) / Math.floor(parseInt(item.width) / imageWidth)) ?? imageWidth,
+          fullUrl: `${resuseUrl}${item.url}`,
           styleDesc: 'test',
-          like: '999+'
+          like: '999+',
+          status: 2,
         }
       })
 
@@ -42,6 +41,13 @@ Page({
       })
     } else {
       // 接口报错
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: '请求失败',
+        theme: 'error',
+        direction: 'column',
+      });
     }
 
   },
@@ -118,7 +124,13 @@ Page({
         url: '../upload/index?params=' + params,
       })
     } else {
-      console.log('请重新进入小程序!')
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: '请重新进入小程序',
+        theme: 'error',
+        direction: 'column',
+      });
     }
 
   }

@@ -1,27 +1,50 @@
 // index.js
-const { globalData } = getApp()
+import Toast from 'tdesign-miniprogram/toast/index';
+
+const api = require("../../utils/api");
+const { serverApi } = require('../../utils/consts')
+
 const defaultAvatarUrl = 'https://mmbiz.qpic.cn/mmbiz/icTdbqWNOwNRna42FI242Lcia07jQodd2FJGIYQfG0LAJGFxM4FbnQP6yfMxBgJ0F3YRqJCJ1aPAK2dQagdusBZg/0'
+
 
 Page({
   data: {
-    theme: globalData.theme,
     userInfo: {
       avatarUrl: defaultAvatarUrl,
       nickName: "",
       tickets: 0,
+      randomBgColor: '#'+(Math.random()*0xffffff<<0).toString(16),
     },
+    dialogConfig: {
+      visible: false,
+      title: '获取次数',
+      content: "请找分享者添加",
+      confirmBtn: { content: '我知道了', variant: 'base' },
+    }
   },
 
-  onLoad() {
+  onLoad:async function() {
     const { userInfo } = this.data;
-    this.setData({
-      theme: globalData.theme,
-      userInfo: {
-        ...userInfo,
-        nickName: globalData.userInfo.nick_name,
-        tickets: globalData.userInfo.tickets
-      }
-    })
+    const response = await api.get(serverApi.userInfo)
+    if (response?.code === 0) {
+      const { data } = response
+
+      this.setData({
+        userInfo: {
+          ...userInfo,
+          nickName: data.nick_name,
+          tickets: data.tickets
+        }
+      })
+    } else {
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: '请求失败',
+        theme: 'error',
+        direction: 'column',
+      });
+    }
   },
 
    /**
@@ -40,5 +63,34 @@ Page({
     wx.navigateTo({
       url: '../list/index',
     })
+  },
+
+  getTickets() {
+    const { dialogConfig } = this.data
+    this.setData({
+      dialogConfig: {
+        ...dialogConfig,
+        visible: true
+      }
+     });
+  },
+
+  closeDialog() {
+    const { dialogConfig } = this.data
+    this.setData({
+      dialogConfig: {
+        ...dialogConfig,
+        visible: false
+      }
+     });
+  },
+
+  goLarkDoc() {
+    // 跳转反馈文档
+    wx.navigateToMiniProgram({
+      appId: 'wxd45c635d754dbf59',
+      path: `pages/detail/detail?url=https://docs.qq.com/sheet/DRkhTeENGeUNtRHVM?tab=BB08J2`
+    })
+
   }
 })

@@ -4,6 +4,8 @@
     "t-dialog": "tdesign-miniprogram/dialog/dialog",
     "t-upload": "tdesign-miniprogram/upload/upload",
     "t-button": "tdesign-miniprogram/button/button",
-    "t-toast": "tdesign-miniprogram/toast/toast"
-  }
+    "t-toast": "tdesign-miniprogram/toast/toast",
+    "t-divider": "tdesign-miniprogram/divider/divider"
+  },
+  "navigationBarTitleText": "上传图片"
 }

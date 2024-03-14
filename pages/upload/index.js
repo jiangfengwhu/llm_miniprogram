@@ -1,5 +1,7 @@
-import api from '../../utils/api'
 import Toast from 'tdesign-miniprogram/toast/index';
+
+const api = require('../../utils/api')
+const { serverApi } = require('../../utils/consts')
 const { globalData } = getApp()
 
 Page({
@@ -7,20 +9,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-    theme: globalData.theme,
     fileList: [], // 图片list
     aiImage: {
       fullUrl: '', // 地址
-      aiImageHeight: 300, // ai图片的高
     },
     gridConfig: {
       column: 1,
       width: 200,
       height: 200
-    },
-    ImageProps: {
-      // 没有生效
-      mode: "aspectFit",
     },
     userUploadImage: {}, // 用户上传图片回调
     // dialog 内容
@@ -28,7 +24,7 @@ Page({
       visible: false,
       title: 'AI图片正在生成中',
       content: "请稍后在我的页面进行浏览、保存",
-      confirmBtn: { content: '返回首页', variant: 'base' },
+      confirmBtn: { content: '返回人像艺术', variant: 'base' },
     }
   },
 
@@ -36,24 +32,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad (options) {
-    const windowInfo = wx.getWindowInfo();
-    const screenWidth = windowInfo.screenWidth;
-    const aiImageHeight = Math.floor(windowInfo.screenHeight * 0.4);
-    const uploadImageHeight = Math.floor(windowInfo.screenHeight * 0.8);
-
     const params = JSON.parse(options?.params) ?? {};
 
     this.setData({
-      theme: globalData.theme,
       aiImage: {
         id: params?.id, // id
         fullUrl: params?.fullUrl, // 地址
-        aiImageHeight, // ai图片的高
-      },
-      gridConfig: {
-        column: 1,
-        width: (screenWidth - 20) * 2,
-        height: uploadImageHeight
       },
     })
   },
@@ -74,7 +58,7 @@ Page({
 
   // 上传图片
   onUpload:async function(file) {
-    api.upload("/com/upload/image", file).then(data => {
+    api.upload(serverApi.upload, file).then(data => {
       const res = JSON.parse(data) ?? {}
       if (res?.name) {
         this.setData({
@@ -103,7 +87,7 @@ Page({
     const tickets = globalData.userInfo.tickets;
     if (tickets > 0) {
       if (fileList.length > 0) {
-        const res = await api.post('/gapi/wx/queue_prompt', {
+        const res = await api.post(serverApi.queuePrompt, {
           template_id: aiImage.id,
           images: { 13: userUploadImage.name },
           type: "t2i",

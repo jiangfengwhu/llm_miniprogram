@@ -1,13 +1,22 @@
 <!--index.wxml-->
 <view class="container" >
   <view class="userinfo">
-    <t-avatar class="avatar-example" image="{{userInfo.avatarUrl}}" />
+    <view class="bg-blur" style="background-color: {{userInfo.randomBgColor}};" />
+    <t-avatar class="avatar-example" shape="round" image="{{userInfo.avatarUrl}}" />
     <text class="task-num">{{userInfo.nickName}}</text>
     <text class="task-num">当前剩余次数：{{userInfo.tickets}}次</text>
   </view>
   <view class="user-list">
     <t-cell title="我的图片" hover arrow leftIcon="image" bind:tap="goMyImageList" />
-    <t-cell title="获取次数" hover arrow leftIcon="map-unlocked" />
-    <t-cell title="xxx" hover arrow leftIcon="lock-on" bordered="{{false}}" />
+    <t-cell title="获取次数" hover arrow leftIcon="map-unlocked" bind:tap="getTickets" />
+    <t-cell title="我有想法" hover arrow leftIcon="cooperate" bordered="{{false}}" bind:tap="goLarkDoc" />
   </view>
+  <t-toast id="t-toast" />
+  <t-dialog
+    visible="{{dialogConfig.visible}}"
+    title="{{dialogConfig.title}}"
+    content="{{dialogConfig.content}}"
+    confirm-btn="{{ dialogConfig.confirmBtn }}"
+    bind:confirm="closeDialog"
+  />
 </view>

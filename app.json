@@ -10,7 +10,7 @@
     "custom": true,
     "list": [{
       "pagePath": "pages/home/index",
-      "text": "首页"
+      "text": "人像艺术"
     }, {
       "pagePath": "pages/user/index",
       "text": "我的"
@@ -24,7 +24,6 @@
     "navigationBarTitleText": "Weixin",
     "navigationBarBackgroundColor": "#ffffff"
   },
-  "style": "v2",
   "componentFramework": "glass-easel",
   "sitemapLocation": "sitemap.json",
   "lazyCodeLoading": "requiredComponents"

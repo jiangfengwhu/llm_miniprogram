@@ -3,9 +3,9 @@ Component({
     value: '/pages/home/index',
     list: [{
       url: '/pages/home/index',
-      icon: 'home',
-      label: '首页',
-      ariaLabel: '首页',
+      icon: 'animation-1',
+      label: '人像艺术',
+      ariaLabel: '人像艺术',
       value: '/pages/home/index'
     }, {
       url: '/pages/user/index',

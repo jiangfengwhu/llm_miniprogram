@@ -1,5 +1,6 @@
 // app.js
 const api = require("./utils/api.js");
+const { serverApi } = require('./utils/consts')
 
 App({
   // 小程序初始化完成时触发，只会触发一次。可以在此函数中进行全局数据的初始化、网络请求等操作
@@ -47,21 +48,20 @@ App({
     // api.get("/api/addr").then(console.log);
 
     // 根据用户屏幕宽度处理图片宽度 35=左右边距10 + 中间 15
-    const windowInfo = wx.getWindowInfo();
-    const imageWidth = Math.floor((windowInfo.screenWidth - 35) / 2);
-    wx.setStorageSync("imageWidth", imageWidth ?? 175);
     const token = wx.getStorageSync("token");
     if (token) {
       api.updateToken(token);
-      api.get("/gapi/wx/user_info").then(data => {
-        console.log(data.data, 'data.data')
-        this.globalData.userInfo = data.data;
-      });
+      const res = await api.get(serverApi.userInfo)
+      if (res?.code === 0) {
+        this.globalData.userInfo = res.data;
+      } else {
+        // error
+      }
     } else {
       // 登录
       wx.login({
         success: (res) => {
-          api.get("/gapi/login_wx?code=" + res.code).then((data) => {
+          api.get(`${serverApi.login}?code=${res.code}`).then((data) => {
             const { token } = data.data ?? {};
             api.updateToken(token);
             wx.setStorageSync("token", token);

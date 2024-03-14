@@ -11,3 +11,12 @@
   font-size: 10px;
   color: var(--theme-paragraph);
 }
+.no-image {
+  width: 92%;
+  height: 150px;
+  border-radius: 8px;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,9 +1,9 @@
 .content {
   width: 100%;
-  padding-left: 8px;
-  background-color: var(--theme-background);
-  padding-bottom: 100px;
+  padding-left: 16rpx;
+  padding-bottom: 200rpx;
+  padding-top: 20rpx;
 }
 .backTop {
-  margin-bottom: 50px;
+  margin-bottom: 120rpx;
 }

@@ -49,28 +49,36 @@ App({
 
     // 根据用户屏幕宽度处理图片宽度 35=左右边距10 + 中间 15
     const token = wx.getStorageSync("token");
+    console.log(token, 'token')
     if (token) {
       api.updateToken(token);
       const res = await api.get(serverApi.userInfo)
-      if (res?.code === 0) {
+      if (res?.code === 403) {
+        // 重新登录
+        await this.login()
+      } else if (res?.code === 0) {
         this.globalData.userInfo = res.data;
       } else {
         // error
+        console.error('登录失败')
       }
     } else {
-      // 登录
-      wx.login({
-        success: (res) => {
-          api.get(`${serverApi.login}?code=${res.code}`).then((data) => {
-            const { token } = data.data ?? {};
-            api.updateToken(token);
-            wx.setStorageSync("token", token);
-          });
-          // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        },
-      });
+      await this.login()
     }
   },
+  login:async function() {
+    // 登录
+    wx.login({
+      success:async (res) => {
+        const data = await api.get(`${serverApi.login}?code=${res.code}`);
+        const { token } = data.data ?? {};
+          api.updateToken(token);
+          wx.setStorageSync("token", token);
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      },
+    });
+  },
+
   // 小程序启动或从后台进入前台显示时触发。可以在此函数中获取用户进入场景、检查用户登录状态等操作
   onShow() {},
   // 小程序从前台进入后台时触发。可以在此函数中进行页面或全局数据的存储、网络请求等操作

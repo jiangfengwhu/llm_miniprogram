@@ -1,18 +1,21 @@
 <view>
   <view wx:if="{{item.status === -1}}" class="no-image">
-    <text>{{item.ErrMsg}}</text>
+    <t-progress theme="circle" percentage="100" status="error" />
+    <text class="error-text" >生成失败</text>
   </view>
+
   <view wx:if="{{item.status !== -1}}" style="position: relative;">
+    <t-progress wx:if="{{item.status !== -1 && item.status !== 2}}" t-class="t-progress" theme="circle" percentage="{{item.percentage}}" trackColor="#EAC9FF" color="#CD04FF" />
     <image
       src="{{item.fullUrl}}"
-      style="width: 92%; border-radius: 8px;"
+      style="width: 90%; border-radius: 8px;"
       mode="widthFix"
       bindlongpress="{{item.bindlongpress}}"
     />
-    <view class="status-view" wx:if="{{item.status !== 2}}">
-      <text class="status-text">{{item.status === 0 ? '排队中' : item.status === 1 ? '正在生成' : ''}}</text>
-    </view>
 
+    <!-- <view class="status-view" wx:if="{{item.status !== 2}}">
+      <text class="status-text">{{item.status === 0 ? '排队中' : item.status === 1 ? '正在生成' : ''}}</text>
+    </view> -->
   </view>
   <view wx:if="{{item.id}}">
     <text class="title">{{item.id}}</text>

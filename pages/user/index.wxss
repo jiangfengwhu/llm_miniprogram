@@ -18,7 +18,7 @@ page {
   align-items: center;
   justify-content: center;
   z-index: 1;
-  background: -webkit-linear-gradient(top,#ace0f9, #FFFEFF);
+  background: -webkit-linear-gradient(top, #ace0f9, #FFFEFF);
   /* background-color: black; */
 }
 .bg-blur {

@@ -1,5 +1,5 @@
-<scroll-view scroll-y type="custom" enable-passive class="{{theme}}"  >
-  <grid-view type="masonry" cross-axis-count="{{crossAxisCount}}" cross-axis-gap="{{crossAxisGap}}" main-axis-gap="{{mainAxisGap}}" class="content">
+<scroll-view scroll-y type="custom" enable-passive class="scroll-view" enhanced show-scrollbar="{{false}}"  >
+  <grid-view type="masonry" cross-axis-count="{{crossAxisCount}}" class="content" 	main-axis-gap="{{mainAxisGap}}" cross-axis-gap="{{crossAxisGap}}">
     <view wx:for="{{gridList}}" wx:key="url" index="url">
       <grid-image item="{{item}}" bind:tap="goUpload" data-item="{{item}}"></grid-image>
     </view>
@@ -10,7 +10,7 @@
     text="{{backTopText}}"
     scroll-top="{{scrollTop}}"
     bind:to-top="onToTop"
-    t-class="backTop"
+    t-class="back-top"
   ></t-back-top>
   <t-toast id="t-toast" />
 </scroll-view>

@@ -9,8 +9,8 @@ const { serverApi, myResourceUrl } = require('../../utils/consts')
 Page({
   data: {
     crossAxisCount: 2,
-    crossAxisGap: 4,
-    mainAxisGap: 4,
+    crossAxisGap: -10,
+    mainAxisGap: 10,
     gridList: [],
     visible: false,
     showIndex: false,
@@ -18,7 +18,45 @@ Page({
     deleteBtn: false,
     initialIndex: 0,
     images: [],
-    emptyImage: 'https://tdesign.gtimg.com/mobile/demos/empty1.png'
+    emptyImage: 'https://tdesign.gtimg.com/mobile/demos/empty1.png',
+    refresherTriggered: false,
+    refresherEnabled: true,
+    scrollY: true
+  },
+  loadData:async function() {
+    const response = await api.get(serverApi.gallery)
+    const gridList = [];
+    const images = [];
+    if(response.code === 0) {
+      const { data } = response;
+
+      data?.forEach(item => {
+        const { owner, id, status, err_msg, current, total } = item ?? {}
+        const src = `${myResourceUrl}/${owner}/${id}_0001.jpg`
+        gridList.push({
+          fullUrl: src,
+          status,
+          err_msg,
+          percentage: Math.floor((current / total) * 100) || 100
+        })
+        images.push(src)
+      })
+
+      this.setData({
+        gridList,
+        images,
+        refresherTriggered: false,
+      })
+    } else {
+      this.setData({
+        refresherTriggered: false,
+      })
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: '请求失败，请稍后重试！',
+      })
+    }
   },
   onLoad:async function() {
     Toast({
@@ -27,35 +65,7 @@ Page({
       message: '长按图片可下载哦！',
       placement: 'bottom'
     })
-    const response = await api.get(serverApi.gallery)
-    const gridList = [];
-    const images = [];
-    if(response.code === 0) {
-      const { data } = response;
-
-      data?.forEach(item => {
-        const { owner, id, status, ErrMsg } = item ?? {}
-        const src = `${myResourceUrl}/${owner}/${id}_0001.jpg`
-
-        gridList.push({
-          fullUrl: src,
-          status,
-          ErrMsg
-        })
-        images.push(src)
-      })
-
-      this.setData({
-        gridList,
-        images
-      })
-    } else {
-      Toast({
-        context: this,
-        selector: '#t-toast',
-        message: '请求失败，请稍后重试！',
-      })
-    }
+    await this.loadData()
   },
 
   onClickImg(e) {
@@ -71,13 +81,11 @@ Page({
   onChange(e) {
     const { index } = e.detail;
   },
-
   onClose(e) {
     this.setData({
       visible: false,
     });
   },
-
   bindlongpress(e) {
     this.selectId = e.currentTarget.dataset.index;
     ActionSheet.show({
@@ -87,7 +95,6 @@ Page({
       items: firstGrid,
     });
   },
-
   handleSelected(e) {
     const { type } = e.detail.selected
     switch(type) {
@@ -103,7 +110,6 @@ Page({
         break
     }
   },
-
   saveImage() {
     const { images } = this.data;
     const that = this;
@@ -168,5 +174,8 @@ Page({
       }
     });
     this.selectId = null;
-  }
+  },
+  onScrollRefresh:async function () {
+    await this.loadData()
+  },
 })

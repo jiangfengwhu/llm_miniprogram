@@ -1,4 +1,4 @@
-<scroll-view scroll-y type="custom" enable-passive class="scroll-view" >
+<scroll-view scroll-y="{{scrollY}}" type="custom" class="scroll-view" enhanced show-scrollbar="{{false}}" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{refresherTriggered}}"	bindrefresherrefresh="onScrollRefresh">
   <grid-view wx:if="{{gridList.length > 0}}" type="masonry" cross-axis-count="{{crossAxisCount}}" cross-axis-gap="{{crossAxisGap}}" main-axis-gap="{{mainAxisGap}}" class="content">
     <view wx:for="{{gridList}}" wx:key="url" index="url">
       <grid-image item="{{item}}" bindlongpress="bindlongpress" bind:tap="onClickImg" data-index="{{index}}" data-item="{{item}}" ></grid-image>
@@ -19,5 +19,5 @@
     bind:change="onChange"
     bind:close="onClose"
   ></t-image-viewer>
-  <t-toast id="t-toast" wx:if="{{gridList.length > 0}}" />
+  <t-toast id="t-toast" hidden="{{gridList.length > 0}}" />
 </scroll-view>

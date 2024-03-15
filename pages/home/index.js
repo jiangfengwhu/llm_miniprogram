@@ -11,8 +11,8 @@ Page({
    */
   data: {
     crossAxisCount: 2,
-    crossAxisGap: 4,
-    mainAxisGap: 4,
+    crossAxisGap: -10,
+    mainAxisGap: 10,
     gridList: [],
     backTopTheme: 'round',
     backTopText: '顶部',

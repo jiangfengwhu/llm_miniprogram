@@ -7,5 +7,7 @@
     "t-image-viewer": "tdesign-miniprogram/image-viewer/image-viewer",
     "t-dialog": "tdesign-miniprogram/dialog/dialog",
     "t-toast": "tdesign-miniprogram/toast/toast"
-  }
+  },
+  "navigationBarTitleText": "我的图片",
+  "enablePullDownRefresh": true
 }

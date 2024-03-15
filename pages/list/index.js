@@ -101,6 +101,9 @@ Page({
       case 'download':
         this.saveImage()
        break
+      case 'delete':
+        this.deleteImage(this.data.gridList[this.selectId])
+        break
       default:
         Toast({
           context: this,
@@ -176,6 +179,15 @@ Page({
     this.selectId = null;
   },
   onScrollRefresh:async function () {
+    this.setData({refresherTriggered: true})
     await this.loadData()
   },
+  async deleteImage(id) {
+    console.log(id, 'zxzx')
+    // const response = await api.post(serverApi.deleteImage, {id})
+    // if(response.code === 0) {
+
+    //   const { data } = response;
+    // }
+  }
 })

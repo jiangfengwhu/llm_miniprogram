@@ -19,7 +19,8 @@ Page({
       title: '获取次数',
       content: "请联系分享者添加",
       confirmBtn: { content: '我知道了', variant: 'base' },
-    }
+    },
+    isRefresh: false,
   },
 
   onLoad:async function() {
@@ -91,5 +92,13 @@ Page({
       path: `pages/detail/detail?url=https://docs.qq.com/sheet/DRkhTeENGeUNtRHVM?tab=BB08J2`
     })
 
-  }
+  },
+   /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  async onPullDownRefresh() {
+    this.setData({isRefresh: true})
+    await this.onLoad()
+    this.setData({isRefresh: false})
+  },
 })

@@ -9,7 +9,7 @@
   </view>
 
 
-  <t-image-viewer closeBtn="{{closeBtn}}" showIndex="{{showIndex}}" visible="{{visible}}" images="{{images}}" initial-index="{{initialIndex}}" bind:change="onChange" bind:close="onClose"></t-image-viewer>
 </scroll-view>
 <t-action-sheet id="t-action-sheet" bind:selected="handleSelected" />
 <t-toast id="t-toast" hidden="{{gridList.length > 0}}" />
+<t-image-viewer closeBtn="{{closeBtn}}" showIndex="{{showIndex}}" visible="{{visible}}" images="{{images}}" initial-index="{{initialIndex}}" bind:change="onChange" bind:close="onClose"></t-image-viewer>

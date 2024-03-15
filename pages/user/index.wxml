@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container" >
+<scroll-view class="container" scroll-y type="custom" enable-passive enhanced show-scrollbar="{{false}}" refresher-background="#ace0f9" refresher-enabled refresher-triggered="{{isRefresh}}" bindrefresherrefresh="onPullDownRefresh">
   <view class="userinfo">
     <view class="bg-blur" />
     <t-avatar class="avatar-example" shape="round" image="{{userInfo.avatarUrl}}" />
@@ -12,11 +12,5 @@
     <t-cell title="我有想法" hover arrow leftIcon="cooperate" bordered="{{false}}" bind:tap="goLarkDoc" />
   </view>
   <t-toast id="t-toast" />
-  <t-dialog
-    visible="{{dialogConfig.visible}}"
-    title="{{dialogConfig.title}}"
-    content="{{dialogConfig.content}}"
-    confirm-btn="{{ dialogConfig.confirmBtn }}"
-    bind:confirm="closeDialog"
-  />
-</view>
+  <t-dialog visible="{{dialogConfig.visible}}" title="{{dialogConfig.title}}" content="{{dialogConfig.content}}" confirm-btn="{{ dialogConfig.confirmBtn }}" bind:confirm="closeDialog" />
+</scroll-view>

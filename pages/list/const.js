@@ -19,6 +19,11 @@ const firstGrid = [
     label: '下载',
     icon: 'download',
   },
+  {
+    type: 'delete',
+    label: '删除',
+    icon: 'delete'
+  }
 ];
 
 export {

@@ -11,7 +11,8 @@ const serverApi = {
   home: '/gapi/home',
   gallery: '/gapi/wx/my_gallery',
   upload: '/com/upload/image',
-  queuePrompt: '/gapi/wx/queue_prompt'
+  queuePrompt: '/gapi/wx/queue_prompt',
+  deleteImage: '/gapi/wx/delete_image'
 }
 
 const resuseUrl = 'https://gate.fbyron.cn/com/res/home/'

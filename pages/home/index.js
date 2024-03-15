@@ -16,7 +16,8 @@ Page({
     gridList: [],
     backTopTheme: 'round',
     backTopText: '顶部',
-    scrollTop: 0
+    scrollTop: 0,
+    isRefresh: false,
   },
 
   /**
@@ -92,8 +93,10 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh() {
-
+  async onPullDownRefresh() {
+    this.setData({isRefresh: true})
+    await this.onLoad()
+    this.setData({isRefresh: false})
   },
 
   /**

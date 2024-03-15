@@ -1,23 +1,15 @@
-<scroll-view scroll-y="{{scrollY}}" type="custom" class="scroll-view" enhanced show-scrollbar="{{false}}" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{refresherTriggered}}"	bindrefresherrefresh="onScrollRefresh">
+<scroll-view scroll-y="{{scrollY}}" type="custom" class="scroll-view" enhanced show-scrollbar="{{false}}" refresher-enabled="{{refresherEnabled}}" refresher-triggered="{{refresherTriggered}}" bindrefresherrefresh="onScrollRefresh">
   <grid-view wx:if="{{gridList.length > 0}}" type="masonry" cross-axis-count="{{crossAxisCount}}" cross-axis-gap="{{crossAxisGap}}" main-axis-gap="{{mainAxisGap}}" class="content">
     <view wx:for="{{gridList}}" wx:key="url" index="url">
-      <grid-image item="{{item}}" bindlongpress="bindlongpress" bind:tap="onClickImg" data-index="{{index}}" data-item="{{item}}" ></grid-image>
+      <grid-image item="{{item}}" bindlongpress="bindlongpress" bind:tap="onClickImg" data-index="{{index}}" data-item="{{item}}"></grid-image>
     </view>
   </grid-view>
   <view wx:else>
-    <t-empty  t-class="empty-cls" t-class-image="t-empty__image" image="{{emptyImage}}" description="快去生成图片吧" />
+    <t-empty t-class="empty-cls" t-class-image="t-empty__image" image="{{emptyImage}}" description="快去生成图片吧" />
   </view>
 
-  <t-action-sheet id="t-action-sheet" bind:selected="handleSelected" />
 
-  <t-image-viewer
-    closeBtn="{{closeBtn}}"
-    showIndex="{{showIndex}}"
-    visible="{{visible}}"
-    images="{{images}}"
-    initial-index="{{initialIndex}}"
-    bind:change="onChange"
-    bind:close="onClose"
-  ></t-image-viewer>
-  <t-toast id="t-toast" hidden="{{gridList.length > 0}}" />
+  <t-image-viewer closeBtn="{{closeBtn}}" showIndex="{{showIndex}}" visible="{{visible}}" images="{{images}}" initial-index="{{initialIndex}}" bind:change="onChange" bind:close="onClose"></t-image-viewer>
 </scroll-view>
+<t-action-sheet id="t-action-sheet" bind:selected="handleSelected" />
+<t-toast id="t-toast" hidden="{{gridList.length > 0}}" />

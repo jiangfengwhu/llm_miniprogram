@@ -13,3 +13,4 @@
 <t-action-sheet id="t-action-sheet" bind:selected="handleSelected" />
 <t-toast id="t-toast" hidden="{{gridList.length > 0}}" />
 <t-image-viewer closeBtn="{{closeBtn}}" showIndex="{{showIndex}}" visible="{{visible}}" images="{{images}}" initial-index="{{initialIndex}}" bind:change="onChange" bind:close="onClose"></t-image-viewer>
+<t-dialog visible="{{showWarnConfirm}}" content="删除后无法恢复，确认删除吗？" confirm-btn="{{ { content: '确认删除', variant: 'base', theme: 'danger' } }}" cancel-btn="取消" bind:confirm="deleteImage" bind:cancel="closeDialog" />

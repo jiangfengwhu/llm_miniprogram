@@ -1,10 +1,11 @@
-import ActionSheet, { ActionSheetTheme } from 'tdesign-miniprogram/action-sheet/index';
-import Toast from 'tdesign-miniprogram/toast/index';
+import ActionSheet, {
+  ActionSheetTheme,
+} from "tdesign-miniprogram/action-sheet/index";
+import Toast from "tdesign-miniprogram/toast/index";
 
-const { firstGrid } = require('./const')
-const api = require('../../utils/api')
-const { serverApi, myResourceUrl } = require('../../utils/consts')
-
+const { firstGrid } = require("./const");
+const api = require("../../utils/api");
+const { serverApi, myResourceUrl } = require("../../utils/consts");
 
 Page({
   data: {
@@ -18,54 +19,56 @@ Page({
     deleteBtn: false,
     initialIndex: 0,
     images: [],
-    emptyImage: 'https://tdesign.gtimg.com/mobile/demos/empty1.png',
+    emptyImage: "https://tdesign.gtimg.com/mobile/demos/empty1.png",
     refresherTriggered: false,
     refresherEnabled: true,
-    scrollY: true
+    scrollY: true,
+    showWarnConfirm: false,
   },
-  loadData:async function() {
-    const response = await api.get(serverApi.gallery)
+  loadData: async function () {
+    const response = await api.get(serverApi.gallery);
     const gridList = [];
     const images = [];
-    if(response.code === 0) {
+    if (response.code === 0) {
       const { data } = response;
 
-      data?.forEach(item => {
-        const { owner, id, status, err_msg, current, total } = item ?? {}
-        const src = `${myResourceUrl}/${owner}/${id}_0001.jpg`
+      data?.forEach((item) => {
+        const { owner, id, status, err_msg, current, total } = item ?? {};
+        const src = `${myResourceUrl}/${owner}/${id}_0001.jpg`;
         gridList.push({
+          key: id,
           fullUrl: src,
           status,
           err_msg,
-          percentage: Math.floor((current / total) * 100) || 100
-        })
-        images.push(src)
-      })
+          percentage: Math.floor((current / total) * 100) || 100,
+        });
+        images.push(src);
+      });
 
       this.setData({
         gridList,
         images,
         refresherTriggered: false,
-      })
+      });
     } else {
       this.setData({
         refresherTriggered: false,
-      })
+      });
       Toast({
         context: this,
-        selector: '#t-toast',
-        message: '请求失败，请稍后重试！',
-      })
+        selector: "#t-toast",
+        message: "请求失败，请稍后重试！",
+      });
     }
   },
-  onLoad:async function() {
+  onLoad: async function () {
     Toast({
       context: this,
-      selector: '#t-toast',
-      message: '长按图片可下载哦！',
-      placement: 'bottom'
-    })
-    await this.loadData()
+      selector: "#t-toast",
+      message: "长按图片可下载哦！",
+      placement: "bottom",
+    });
+    await this.loadData();
   },
 
   onClickImg(e) {
@@ -75,7 +78,7 @@ Page({
       visible: true,
       closeBtn: true,
       deleteBtn: true,
-      initialIndex: index
+      initialIndex: index,
     });
   },
   onChange(e) {
@@ -90,27 +93,27 @@ Page({
     this.selectId = e.currentTarget.dataset.index;
     ActionSheet.show({
       theme: ActionSheetTheme.Grid,
-      selector: '#t-action-sheet',
+      selector: "#t-action-sheet",
       context: this,
       items: firstGrid,
     });
   },
   handleSelected(e) {
-    const { type } = e.detail.selected
-    switch(type) {
-      case 'download':
-        this.saveImage()
-       break
-      case 'delete':
-        this.deleteImage(this.data.gridList[this.selectId])
-        break
+    const { type } = e.detail.selected;
+    switch (type) {
+      case "download":
+        this.saveImage();
+        break;
+      case "delete":
+        this.setData({ showWarnConfirm: true });
+        break;
       default:
         Toast({
           context: this,
-          selector: '#t-toast',
-          message: '开发中～',
-        })
-        break
+          selector: "#t-toast",
+          message: "开发中～",
+        });
+        break;
     }
   },
   saveImage() {
@@ -119,75 +122,84 @@ Page({
     if (this.selectId == null) {
       Toast({
         context: that,
-        selector: '#t-toast',
-        message: '请重新选择',
-      })
-      return
+        selector: "#t-toast",
+        message: "请重新选择",
+      });
+      return;
     }
     let imageUrl = images[this.selectId];
 
     // 下载图片
     wx.downloadFile({
       url: imageUrl,
-      success: function(res) {
+      success: function (res) {
         if (res.statusCode === 200) {
           // 下载成功后保存图片到相册
           wx.saveImageToPhotosAlbum({
             filePath: res.tempFilePath,
-            success: function() {
+            success: function () {
               Toast({
                 context: that,
-                selector: '#t-toast',
-                message: '保存成功',
-                theme: 'success',
-                direction: 'column',
+                selector: "#t-toast",
+                message: "保存成功",
+                theme: "success",
+                direction: "column",
               });
             },
-            fail: function(error) {
-              console.error('保存图片失败', error);
+            fail: function (error) {
+              console.error("保存图片失败", error);
               Toast({
                 context: that,
-                selector: '#t-toast',
-                message: '保存失败',
-                theme: 'error',
-                direction: 'column',
+                selector: "#t-toast",
+                message: "保存失败",
+                theme: "error",
+                direction: "column",
               });
-            }
+            },
           });
         } else {
-          console.error('下载图片失败', res);
+          console.error("下载图片失败", res);
           Toast({
             context: that,
-            selector: '#t-toast',
-            message: '下载失败',
-            theme: 'error',
-            direction: 'column',
+            selector: "#t-toast",
+            message: "下载失败",
+            theme: "error",
+            direction: "column",
           });
         }
       },
-      fail: function(error) {
-        console.error('下载图片失败', error);
+      fail: function (error) {
+        console.error("下载图片失败", error);
         Toast({
           context: that,
-          selector: '#t-toast',
-          message: '下载失败',
-          theme: 'error',
-          direction: 'column',
+          selector: "#t-toast",
+          message: "下载失败",
+          theme: "error",
+          direction: "column",
         });
-      }
+      },
     });
     this.selectId = null;
   },
-  onScrollRefresh:async function () {
-    this.setData({refresherTriggered: true})
-    await this.loadData()
+  onScrollRefresh: async function () {
+    this.setData({ refresherTriggered: true });
+    await this.loadData();
   },
-  async deleteImage(id) {
-    console.log(id, 'zxzx')
-    // const response = await api.post(serverApi.deleteImage, {id})
-    // if(response.code === 0) {
-
-    //   const { data } = response;
-    // }
-  }
-})
+  async deleteImage() {
+    const id = this.data.gridList[this.selectId]?.key;
+    this.setData({ showWarnConfirm: false });
+    const response = await api.post(serverApi.deleteImage, { id });
+    if (response.code === 0) {
+      this.loadData();
+    } else {
+      Toast({
+        context: this,
+        selector: "#t-toast",
+        message: "删除失败，请重试",
+      });
+    }
+  },
+  closeDialog() {
+    this.setData({ showWarnConfirm: false });
+  },
+});

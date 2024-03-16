@@ -5,5 +5,5 @@
     "t-back-top": "tdesign-miniprogram/back-top/back-top",
     "t-toast": "tdesign-miniprogram/toast/toast"
   },
-  "componentFramework": "glass-easel"
+  "enablePullDownRefresh": true
 }

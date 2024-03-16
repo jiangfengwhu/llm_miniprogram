@@ -20,7 +20,6 @@ Page({
       content: "请联系分享者添加",
       confirmBtn: { content: '我知道了', variant: 'base' },
     },
-    isRefresh: false,
   },
 
   onLoad:async function() {
@@ -97,8 +96,12 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   async onPullDownRefresh() {
-    this.setData({isRefresh: true})
-    await this.onLoad()
-    this.setData({isRefresh: false})
+    await this.onLoad();
+    wx.stopPullDownRefresh();
+    wx.showToast({
+      title: '刷新成功',
+      icon: 'success',
+      duration: 1000
+    });
   },
 })

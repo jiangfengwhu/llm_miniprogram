@@ -8,5 +8,7 @@
     "t-dialog": "tdesign-miniprogram/dialog/dialog"
   },
   "navigationBarTitleText": "我的主页",
-  "navigationBarBackgroundColor": "#ace0f9"
+  "navigationBarBackgroundColor": "#ace0f9",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#ace0f9"
 }

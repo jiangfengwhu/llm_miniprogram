@@ -20,8 +20,6 @@ Page({
     initialIndex: 0,
     images: [],
     emptyImage: "https://tdesign.gtimg.com/mobile/demos/empty1.png",
-    refresherTriggered: false,
-    refresherEnabled: true,
     scrollY: true,
     showWarnConfirm: false,
   },
@@ -48,12 +46,8 @@ Page({
       this.setData({
         gridList,
         images,
-        refresherTriggered: false,
       });
     } else {
-      this.setData({
-        refresherTriggered: false,
-      });
       Toast({
         context: this,
         selector: "#t-toast",
@@ -181,9 +175,14 @@ Page({
     });
     this.selectId = null;
   },
-  onScrollRefresh: async function () {
-    this.setData({ refresherTriggered: true });
+  async onPullDownRefresh() {
     await this.loadData();
+    wx.stopPullDownRefresh();
+    wx.showToast({
+      title: '刷新成功',
+      icon: 'success',
+      duration: 1000
+    });
   },
   async deleteImage() {
     const id = this.data.gridList[this.selectId]?.key;

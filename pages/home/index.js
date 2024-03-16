@@ -17,7 +17,6 @@ Page({
     backTopTheme: 'round',
     backTopText: '顶部',
     scrollTop: 0,
-    isRefresh: false,
   },
 
   /**
@@ -93,9 +92,13 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   async onPullDownRefresh() {
-    this.setData({isRefresh: true})
     await this.onLoad()
-    this.setData({isRefresh: false})
+    wx.stopPullDownRefresh();
+    wx.showToast({
+      title: '刷新成功',
+      icon: 'success',
+      duration: 1000
+    });
   },
 
   /**

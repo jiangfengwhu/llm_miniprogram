@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<scroll-view class="container" scroll-y type="custom" enable-passive enhanced show-scrollbar="{{false}}" refresher-background="#ace0f9" refresher-enabled refresher-triggered="{{isRefresh}}" bindrefresherrefresh="onPullDownRefresh">
+<scroll-view class="container" scroll-y type="custom" enable-passive enhanced show-scrollbar="{{false}}" refresher-background="#ace0f9" refresher-enabled refresher-triggered="{{isRefresh}}" bindrefresherrefresh="onPullDownRefresh" refresher-background="#ace0f9">
   <view class="userinfo">
     <view class="bg-blur" />
     <t-avatar class="avatar-example" shape="round" image="{{userInfo.avatarUrl}}" />

@@ -31,7 +31,6 @@ Page({
         return {
           ...item,
           fullUrl: `${resuseUrl}${item.url}`,
-          styleDesc: 'test',
           like: '999+',
           status: 2,
         }

@@ -4,13 +4,13 @@
       <grid-image item="{{item}}" bind:tap="goUpload" data-item="{{item}}"></grid-image>
     </view>
   </grid-view>
-  <t-back-top
-    visibilityHeight="0"
-    theme="{{backTopTheme}}"
-    text="{{backTopText}}"
-    scroll-top="{{scrollTop}}"
-    bind:to-top="onToTop"
-    t-class="back-top"
-  ></t-back-top>
   <t-toast id="t-toast" />
 </scroll-view>
+<t-back-top
+  visibilityHeight="0"
+  theme="{{backTopTheme}}"
+  text="{{backTopText}}"
+  scroll-top="{{scrollTop}}"
+  bind:to-top="onToTop"
+  t-class="back-top"
+></t-back-top>

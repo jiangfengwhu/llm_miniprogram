@@ -11,6 +11,7 @@
       style="width: 90%; border-radius: 8px;"
       mode="widthFix"
       bindlongpress="{{item.bindlongpress}}"
+      lazy-load
     />
 
     <!-- <view class="status-view" wx:if="{{item.status !== 2}}">
@@ -23,7 +24,7 @@
   <view wx:if="{{item.styleDesc}}">
     <text class="describe">风格介绍：{{item.styleDesc}}</text>
   </view>
-  <view wx:if="{{item.like}}">
+  <!-- <view wx:if="{{item.like}}">
     <text class="like">点赞：{{item.like}}</text>
-  </view>
+  </view> -->
 </view>

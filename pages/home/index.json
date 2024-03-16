@@ -5,5 +5,6 @@
     "t-back-top": "tdesign-miniprogram/back-top/back-top",
     "t-toast": "tdesign-miniprogram/toast/toast"
   },
-  "enablePullDownRefresh": true
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "山茶AI"
 }

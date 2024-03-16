@@ -38,7 +38,7 @@ Page({
           fullUrl: src,
           status,
           err_msg,
-          percentage: Math.floor((current / total) * 100) || 100,
+          percentage: Math.floor((current / total) * 100) || 0,
         });
         images.push(src);
       });
